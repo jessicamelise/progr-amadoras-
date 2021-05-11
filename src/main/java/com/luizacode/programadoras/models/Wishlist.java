@@ -13,4 +13,24 @@ public class Wishlist {
     public List<Produto> getProdutos() {
         return produtos;
     }
+
+    public void adicionarProduto(Produto produto) {
+
+        if (!produtos.contains(produto)) {
+            produtos.add(produto);
+        } else {
+            System.out.println("O Produto X já está na base");
+        }
+
+    }
+
+    public void removerProduto(Produto produto) {
+
+        if (produtos.contains(produto)) {
+            produtos.remove(produto);
+        } else {
+            System.out.println("O Produto X não está na base");
+        }
+    }
+
 }
