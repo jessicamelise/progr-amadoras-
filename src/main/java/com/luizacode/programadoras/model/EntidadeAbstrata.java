@@ -1,4 +1,4 @@
-package com.luizacode.programadoras.models;
+package com.luizacode.programadoras.model;
 
 import java.io.Serializable;
 
