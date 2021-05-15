@@ -17,6 +17,8 @@ public class ClienteEntidade extends EntidadeAbstrata {
          this.email = email;
     }
 
+    public ClienteEntidade(){}
+
     public String getNome() {
         return nome;
     }
