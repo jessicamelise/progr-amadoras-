@@ -1,6 +1,5 @@
 package com.luizacode.programadoras.dto;
 import javax.validation.constraints.NotNull;
-import java.security.PrivateKey;
 
 public class ClienteDto {
   @NotNull
