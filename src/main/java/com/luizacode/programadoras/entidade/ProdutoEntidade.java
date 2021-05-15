@@ -1,14 +1,23 @@
-package com.luizacode.programadoras.dto;
+package com.luizacode.programadoras.entidade;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
-public class ProdutoDto {
+@Entity
+public class ProdutoEntidade extends EntidadeAbstrata {
 
-    @NotNull
+    @Column(nullable = false)
     private double valorDoProduto;
 
-    @NotNull
+    @Column(nullable = false)
     private String nomeDoProduto;
+
+    public ProdutoEntidade(double valorDoProduto, String nomeDoProduto) {
+        this.valorDoProduto = valorDoProduto;
+        this.nomeDoProduto = nomeDoProduto;
+    }
+
+    public ProdutoEntidade() {
+    }
 
     public double getValorDoProduto() {
         return valorDoProduto;
