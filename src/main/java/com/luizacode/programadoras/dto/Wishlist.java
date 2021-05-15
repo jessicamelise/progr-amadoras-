@@ -1,16 +1,16 @@
-package com.luizacode.programadoras.models;
+package com.luizacode.programadoras.dto;
 
 import java.util.List;
 
 public class Wishlist {
 
-    List<Produto> produtos;
+    List<ProdutoDto> produtos;
 
-    public Wishlist(List<Produto> produtos) {
+    public Wishlist(List<ProdutoDto> produtos) {
         this.produtos = produtos;
     }
 
-    public List<Produto> getProdutos() {
+    public List<ProdutoDto> getProdutos() {
         return produtos;
     }
 }

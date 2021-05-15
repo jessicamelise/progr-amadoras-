@@ -1,7 +1,6 @@
-package com.luizacode.programadoras.models;
+package com.luizacode.programadoras.entidade;
 
 import java.io.Serializable;
-
 import javax.persistence.MappedSuperclass;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
