@@ -6,6 +6,8 @@ import com.luizacode.programadoras.service.ClienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -21,7 +23,10 @@ public class ClienteController {
         return clienteServico.criarCliente(clienteDto);
     }
 
-
+    @GetMapping
+    public List<ClienteEntidade> listar() {
+        return clienteServico.listarClientes();
+    }
 
 
 }

@@ -7,6 +7,8 @@ import com.luizacode.programadoras.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ClienteService {
@@ -21,4 +23,7 @@ public class ClienteService {
         return clienteRepository.save(clienteEntidade);
     }
 
+    public List<ClienteEntidade> listarClientes() {
+        return clienteRepository.findAll();
+    }
 }
