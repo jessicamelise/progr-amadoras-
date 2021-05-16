@@ -19,8 +19,8 @@ public class ProdutoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProdutoEntidade adicionar(@RequestBody ProdutoDto produtoDto) {
-        return produtoServico.criarProduto(produtoDto);
+    public ProdutoEntidade adicionar(@RequestBody ProdutoDto produto) {
+        return produtoServico.criarProduto(produto);
     }
 
     @GetMapping

@@ -23,8 +23,8 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ClienteEntidade adicionar(@RequestBody ClienteDto clienteDto) {
-        return clienteServico.criarCliente(clienteDto);
+    public ClienteEntidade adicionar(@RequestBody ClienteDto cliente) {
+        return clienteServico.criarCliente(cliente);
     }
 
     @GetMapping
@@ -35,6 +35,11 @@ public class ClienteController {
     @GetMapping("/{idCliente}/listadesejo")
     public List<ListaDesejoEntidade> pegarListaDesejo(@PathVariable Long idCliente) {
         return (List<ListaDesejoEntidade>) listaDesejoService.procurar(idCliente);
+    }
+
+    @GetMapping("/{idCliente}/listadesejo/{idProduto}")
+    public String verificarItemExistente(@PathVariable Long idCliente, @PathVariable Long idProduto) {
+        return listaDesejoService.verificarSeExiste(idCliente, idProduto);
     }
 
 }

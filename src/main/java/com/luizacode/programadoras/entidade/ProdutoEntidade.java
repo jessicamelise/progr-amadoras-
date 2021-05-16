@@ -16,7 +16,7 @@ public class ProdutoEntidade extends EntidadeAbstrata {
         this.nomeDoProduto = nomeDoProduto;
     }
 
-    public ProdutoEntidade() {
+    protected ProdutoEntidade() {
     }
 
     public double getValorDoProduto() {
