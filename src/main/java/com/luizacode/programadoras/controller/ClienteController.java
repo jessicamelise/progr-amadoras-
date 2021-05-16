@@ -1,6 +1,7 @@
 package com.luizacode.programadoras.controller;
 
 import com.luizacode.programadoras.dto.ClienteDto;
+import com.luizacode.programadoras.dto.ClienteProdutoDto;
 import com.luizacode.programadoras.entidade.ClienteEntidade;
 import com.luizacode.programadoras.entidade.ListaDesejoEntidade;
 import com.luizacode.programadoras.service.ClienteService;
@@ -42,4 +43,15 @@ public class ClienteController {
         return listaDesejoService.verificarSeExiste(idCliente, idProduto);
     }
 
+    @DeleteMapping("/{idCliente}/listadesejo/{idProduto}")
+    public String deletarItemListaDesejo(@PathVariable Long idCliente, @PathVariable Long idProduto ) {
+        listaDesejoService.deletar(idCliente, idProduto);
+        return "Produto Deletado";
+    }
+
+    @PostMapping("/{idCliente}/listadesejo")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ListaDesejoEntidade adicionarListaDesejo(@PathVariable Long idCliente, @RequestBody ClienteProdutoDto clienteProduto) throws Exception {
+        return listaDesejoService.adicionarItem(idCliente, clienteProduto);
+    }
 }
