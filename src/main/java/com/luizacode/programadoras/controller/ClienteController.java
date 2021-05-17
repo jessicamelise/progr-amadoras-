@@ -6,10 +6,12 @@ import com.luizacode.programadoras.entidade.ClienteEntidade;
 import com.luizacode.programadoras.entidade.ListaDesejoEntidade;
 import com.luizacode.programadoras.service.ClienteService;
 import com.luizacode.programadoras.service.ListaDesejoService;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/clientes")
@@ -23,8 +25,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ClienteEntidade adicionar(@RequestBody ClienteDto cliente) {
+    public ResponseEntity<ClienteEntidade> adicionar(@RequestBody @Valid ClienteDto cliente) {
         return clienteServico.criarCliente(cliente);
     }
 
@@ -50,8 +51,7 @@ public class ClienteController {
     }
 
     @PostMapping("/{idCliente}/listadesejo")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ListaDesejoEntidade adicionarListaDesejo(@PathVariable Long idCliente, @RequestBody ClienteProdutoDto clienteProduto) throws Exception {
+    public ResponseEntity<ListaDesejoEntidade> adicionarListaDesejo(@PathVariable Long idCliente, @RequestBody @Valid ClienteProdutoDto clienteProduto) throws Exception {
         return listaDesejoService.adicionarItem(idCliente, clienteProduto);
     }
 }

@@ -1,10 +1,12 @@
 package com.luizacode.programadoras.dto;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 public class ProdutoDto {
 
     @NotNull
+    @DecimalMin(value = "0.01")
     private double valorDoProduto;
 
     @NotNull

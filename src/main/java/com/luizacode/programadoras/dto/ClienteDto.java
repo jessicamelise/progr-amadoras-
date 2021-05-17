@@ -1,12 +1,16 @@
 package com.luizacode.programadoras.dto;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 public class ClienteDto {
   @NotNull
   private String nome;
+  
   @NotNull
   private String endereco;
+
   @NotNull
+  @Email
   private String email;
 
   public String getNome() {
