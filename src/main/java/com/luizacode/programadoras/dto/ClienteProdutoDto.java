@@ -1,6 +1,10 @@
 package com.luizacode.programadoras.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class ClienteProdutoDto {
+
+    @NotNull
     private Long produtoId;
 
     public Long getProdutoId() {
