@@ -7,8 +7,13 @@ import com.luizacode.programadoras.entidade.*;
 import com.luizacode.programadoras.repository.*;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -53,7 +58,7 @@ public class ListaDesejoService {
         listaDesejoRepository.deleteAll(listaFiltrada);
     }
 
-    public ListaDesejoEntidade adicionarItem(Long idCliente, ClienteProdutoDto clienteProduto) throws Exception {
+    public ResponseEntity<ListaDesejoEntidade> adicionarItem(Long idCliente, ClienteProdutoDto clienteProduto) throws Exception {
         Optional<ClienteEntidade> adicionarCliente;
         Optional<ProdutoEntidade> adicionarProduto;
         String produtoExiste;
@@ -73,7 +78,18 @@ public class ListaDesejoService {
                 throw new Exception("Produto já está na lista");
             } else {
                 ListaDesejoEntidade listaDesejoEntidade = new ListaDesejoEntidade(adicionarCliente.get(), adicionarProduto.get());
-                return listaDesejoRepository.save(listaDesejoEntidade);
+                ListaDesejoEntidade adicionarItem = listaDesejoRepository.save(listaDesejoEntidade);
+
+                URI location = ServletUriComponentsBuilder
+                    .fromCurrentServletMapping()
+                    .path("/clientes/"+ idCliente +"/listadesejo/{id}")
+                    .build()
+                    .expand(adicionarItem.getId())
+                    .toUri();
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setLocation(location);
+                return new ResponseEntity<ListaDesejoEntidade>(headers, HttpStatus.CREATED);
             }
             
         }
