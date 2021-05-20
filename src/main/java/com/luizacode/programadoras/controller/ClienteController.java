@@ -8,6 +8,11 @@ import com.luizacode.programadoras.service.ClienteService;
 import com.luizacode.programadoras.service.ListaDesejoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+
+import java.net.URI;
 
 import java.util.List;
 
@@ -26,7 +31,18 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<ClienteEntidade> adicionar(@RequestBody @Valid ClienteDto cliente) {
-        return clienteServico.criarCliente(cliente);
+        ClienteEntidade criar = clienteServico.criarCliente(cliente);
+        
+        URI location = ServletUriComponentsBuilder
+            .fromCurrentServletMapping()
+            .path("/clientes/{id}")
+            .build()
+            .expand(criar.getId())
+            .toUri();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(location);
+        return new ResponseEntity<ClienteEntidade>(headers, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -52,6 +68,17 @@ public class ClienteController {
 
     @PostMapping("/{idCliente}/listadesejo")
     public ResponseEntity<ListaDesejoEntidade> adicionarListaDesejo(@PathVariable Long idCliente, @RequestBody @Valid ClienteProdutoDto clienteProduto) throws Exception {
-        return listaDesejoService.adicionarItem(idCliente, clienteProduto);
+        ListaDesejoEntidade criar = listaDesejoService.adicionarItem(idCliente, clienteProduto);
+
+        URI location = ServletUriComponentsBuilder
+        .fromCurrentServletMapping()
+        .path("/clientes/"+ idCliente +"/listadesejo/{id}")
+        .build()
+        .expand(criar.getId())
+        .toUri();
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setLocation(location);
+    return new ResponseEntity<ListaDesejoEntidade>(headers, HttpStatus.CREATED);
     }
 }

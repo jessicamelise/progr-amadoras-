@@ -1,19 +1,12 @@
 package com.luizacode.programadoras.service;
 
 import com.luizacode.programadoras.dto.ClienteProdutoDto;
-// import java.util.Optional;
-// import com.luizacode.programadoras.dto.*;
+
 import com.luizacode.programadoras.entidade.*;
 import com.luizacode.programadoras.repository.*;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -21,15 +14,19 @@ import javax.transaction.Transactional;
 @Transactional
 public class ListaDesejoService {
 
-    @Autowired
     private ListaDesejoRepository listaDesejoRepository;
-    @Autowired
+    
     private ClienteRepository clienteRepository;
 
-    @Autowired
     private ProdutoRepository produtoRepository;
 
-    public ListaDesejoService() {}
+    public ListaDesejoService(ListaDesejoRepository listaDesejoRepository,
+        ClienteRepository clienteRepository,
+        ProdutoRepository produtoRepository) {
+            this.listaDesejoRepository = listaDesejoRepository;
+            this.clienteRepository = clienteRepository;
+            this.produtoRepository = produtoRepository;
+        }
 
     public Iterable<ListaDesejoEntidade> procurar(Long id) {
         QListaDesejoEntidade qlista = QListaDesejoEntidade.listaDesejoEntidade;
@@ -58,7 +55,7 @@ public class ListaDesejoService {
         listaDesejoRepository.deleteAll(listaFiltrada);
     }
 
-    public ResponseEntity<ListaDesejoEntidade> adicionarItem(Long idCliente, ClienteProdutoDto clienteProduto) throws Exception {
+    public ListaDesejoEntidade adicionarItem(Long idCliente, ClienteProdutoDto clienteProduto) throws Exception {
         Optional<ClienteEntidade> adicionarCliente;
         Optional<ProdutoEntidade> adicionarProduto;
         String produtoExiste;
@@ -78,18 +75,7 @@ public class ListaDesejoService {
                 throw new Exception("Produto já está na lista");
             } else {
                 ListaDesejoEntidade listaDesejoEntidade = new ListaDesejoEntidade(adicionarCliente.get(), adicionarProduto.get());
-                ListaDesejoEntidade adicionarItem = listaDesejoRepository.save(listaDesejoEntidade);
-
-                URI location = ServletUriComponentsBuilder
-                    .fromCurrentServletMapping()
-                    .path("/clientes/"+ idCliente +"/listadesejo/{id}")
-                    .build()
-                    .expand(adicionarItem.getId())
-                    .toUri();
-
-                HttpHeaders headers = new HttpHeaders();
-                headers.setLocation(location);
-                return new ResponseEntity<ListaDesejoEntidade>(headers, HttpStatus.CREATED);
+                return listaDesejoRepository.save(listaDesejoEntidade);
             }
             
         }
