@@ -69,7 +69,7 @@ Projeto desenvolvido por:
 - [Elizandra Rocha](https://github.com/elizandrarocha)
 - [Jéssica Melise](https://github.com/jessicamelise)
 - [Letícia Braz](https://github.com/lebraz)
-- [Marcela Muraru](https://github.com/mmmuraro)
+- [Marcela Muraro](https://github.com/mmmuraro)
 - [Nathalia Martins](https://github.com/92912905)
 - [Nicoli Juliana](https://github.com/NicoliMendes)
 
